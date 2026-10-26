@@ -14,8 +14,11 @@ SPLITS = ("train", "val", "test")
 
 
 def digest(path):
+    sha = hashlib.sha256()
     with open(path, "rb") as stream:
-        return hashlib.file_digest(stream, "sha256").hexdigest()
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            sha.update(chunk)
+    return sha.hexdigest()
 
 
 def leaf_key(path):
