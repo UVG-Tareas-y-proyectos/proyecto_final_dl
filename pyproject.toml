@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plant-disease-dl"
+version = "0.1.0"
+description = "Comparación de CNN y MobileNetV2 para hojas de PlantVillage"
+requires-python = ">=3.10"
+dependencies = ["torch==2.6.0", "torchvision==0.21.0", "scikit-learn==1.6.1", "Pillow>=10,<12", "numpy>=1.26,<3", "streamlit==1.42.2"]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5", "reportlab>=4,<5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
