@@ -1,0 +1,4 @@
+real / predicha,Potato___Early_blight,Potato___Late_blight,Potato___healthy
+Potato___Early_blight,6,0,0
+Potato___Late_blight,3,3,0
+Potato___healthy,5,1,0

@@ -47,16 +47,43 @@ Se generan configuración, historial por época, pesos, métricas por clase,
 accuracy, precision/recall/F1 macro y ponderado, matriz de confusión y predicciones.
 Los experimentos deben reutilizar exactamente el mismo manifiesto y semilla.
 
+## Demostración disponible
+
+Se incluye `artifacts/pilot_cnn.pt`, una CNN entrenada durante cinco épocas con
+81 imágenes de tres clases de papa; validación y test contienen 18 imágenes cada uno.
+No representa el modelo final ni cubre los demás cultivos.
+
+```powershell
+python -m streamlit run app.py -- --checkpoint artifacts/pilot_cnn.pt
+```
+
+Para repetir el piloto usando la misma revisión de los datos:
+
+```powershell
+python scripts/download_pilot.py --ref 7f7ecc7e1eaca78107e3affe7cb5abd9427e139a
+python -m plant_disease.prepare --root data/raw/pilot/color --leaf-map data/raw/pilot/leaf-map.json --out data/processed/pilot
+python -m plant_disease.train --root data/raw/pilot/color --manifest data/processed/pilot/manifest.csv --model cnn --out runs/pilot_cnn --epochs 5
+python -m plant_disease.evaluate --root data/raw/pilot/color --manifest data/processed/pilot/manifest.csv --checkpoint runs/pilot_cnn/best.pt --out runs/pilot_cnn/test
+```
+
+Usar carpetas nuevas si ya existen resultados. La descarga de pesos de MobileNetV2
+quedó bloqueada por el filtro de red del entorno; su implementación y dimensiones
+se probaron con pesos aleatorios, pero su entrenamiento con transferencia queda pendiente.
+Los datos y resultados auditables del piloto se encuentran en `experiments/pilot/`.
+
 ## Documentos de la entrega
 
-- [Propuesta y metodología](docs/propuesta.md).
 - [Entrega parcial en PDF](docs/entrega_parcial.pdf).
-- [Registro del uso de IA](docs/uso_ia.md).
-- [Validación del avance](docs/validacion.md).
 
 La entrega parcial en Canvas requiere además la captura del correo que aprueba
 el **tema**. Debe adjuntarla el equipo; no se dispone de esa evidencia en este repositorio.
 El video y la presentación de máximo 10 diapositivas corresponden a la entrega final.
+
+El reporte usa el formato de laboratorio del equipo: portada UVG, Times New Roman,
+texto justificado y tablas sencillas. La portada corresponde a Deep Learning,
+sección 10, catedrático Luis Alberto Suriano Saravia. Para regenerar el Word:
+`python scripts/build_report.py --template ruta/al/formato.docx --out reporte.docx`;
+después exportarlo a PDF desde Word. La plantilla se proporciona externamente.
 
 ## Límites
 

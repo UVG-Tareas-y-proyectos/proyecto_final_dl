@@ -1,0 +1,19 @@
+path,actual,predicted
+Potato___Early_blight/26d2af6a-f52e-457c-8006-fa106ad39fbe___RS_Early.B 8586.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___Early_blight/29922d76-0eda-4e7c-89af-7688c656bfdd___RS_Early.B 8353.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___Early_blight/37da60b5-9c33-4fe7-95d4-3a2db2a7702b___RS_Early.B 8359.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___Early_blight/541f3dc9-a330-4caf-97f3-88bec1b60c53___RS_Early.B 7767.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___Early_blight/686938d8-5fcc-4482-850f-0e8720206046___RS_Early.B 7769.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___Early_blight/6a74ff09-be5a-4412-a192-2370a37c0751___RS_Early.B 8584.JPG,Potato___Early_blight,Potato___Early_blight
+Potato___healthy/1ae826e2-5148-47bd-a44c-711ec9cc9c75___RS_HL 1954.JPG,Potato___healthy,Potato___Early_blight
+Potato___healthy/4a08efaa-28cc-4356-8769-4002f4b299ef___RS_HL 1850.JPG,Potato___healthy,Potato___Early_blight
+Potato___healthy/52dd2fdd-6966-450c-a42b-ee14428d4271___RS_HL 1955.JPG,Potato___healthy,Potato___Early_blight
+Potato___healthy/849aa978-c7b9-4344-9ca8-129219a65f8e___RS_HL 1874.JPG,Potato___healthy,Potato___Late_blight
+Potato___healthy/9a6eb7c4-6b43-477a-89e0-69f62ef67991___RS_HL 1846.JPG,Potato___healthy,Potato___Early_blight
+Potato___healthy/d325e580-5faa-4aea-927d-2700f52cc343___RS_HL 1872.JPG,Potato___healthy,Potato___Early_blight
+Potato___Late_blight/0114b195-844c-4978-93a9-b0d5aae010f1___RS_LB 2738.JPG,Potato___Late_blight,Potato___Early_blight
+Potato___Late_blight/2c2b39ed-75f9-49f6-a28e-36a2cb608297___RS_LB 2794.JPG,Potato___Late_blight,Potato___Early_blight
+Potato___Late_blight/324a0ba8-726a-4e6c-a15f-c32a1904f891___RS_LB 3078.JPG,Potato___Late_blight,Potato___Early_blight
+Potato___Late_blight/44112cb9-7423-4983-bb9a-cb32e3ea9ac3___RS_LB 2793.JPG,Potato___Late_blight,Potato___Late_blight
+Potato___Late_blight/80bdc2a3-66b8-4d95-abe7-65c7806f7cbf___RS_LB 3073.JPG,Potato___Late_blight,Potato___Late_blight
+Potato___Late_blight/96879d98-11ca-40c7-9708-9ca8f235f407___RS_LB 2739.JPG,Potato___Late_blight,Potato___Late_blight

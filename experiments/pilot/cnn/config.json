@@ -1,0 +1,24 @@
+{
+  "root": "data\\raw\\pilot\\color",
+  "manifest": "data\\processed\\pilot\\manifest.csv",
+  "model": "cnn",
+  "out": "runs\\pilot_cnn",
+  "epochs": 5,
+  "batch_size": 32,
+  "lr": 0.001,
+  "seed": 42,
+  "threads": 2,
+  "device": "cpu",
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "manifest_sha256": "8fe764213bc3212d03cfafd8527956a899ab057c9eab0ccfd50770d2f37ea3e2",
+  "python": "3.12.10",
+  "torch": "2.6.0+cpu",
+  "torchvision": "0.21.0+cpu",
+  "pretrained": false,
+  "augmentation": "horizontal_flip + rotation_15, train only",
+  "image_size": 224
+}

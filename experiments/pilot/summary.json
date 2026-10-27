@@ -1,0 +1,32 @@
+{
+  "seed": 42,
+  "images": 117,
+  "groups": 60,
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "manifest_sha256": "8fe764213bc3212d03cfafd8527956a899ab057c9eab0ccfd50770d2f37ea3e2",
+  "leaf_map_sha256": "3b4b253683c6911744959a3870a92509b1faa1ee34e9f8585e21d0fe6337a25b",
+  "duplicates_removed": 0,
+  "missing_leaf_metadata": [],
+  "damaged_images": [],
+  "counts": {
+    "train": {
+      "Potato___Early_blight": 28,
+      "Potato___healthy": 25,
+      "Potato___Late_blight": 28
+    },
+    "val": {
+      "Potato___Early_blight": 6,
+      "Potato___healthy": 6,
+      "Potato___Late_blight": 6
+    },
+    "test": {
+      "Potato___Early_blight": 6,
+      "Potato___healthy": 6,
+      "Potato___Late_blight": 6
+    }
+  }
+}

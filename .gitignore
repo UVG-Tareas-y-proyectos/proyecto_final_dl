@@ -6,6 +6,7 @@ data/raw/
 data/processed/
 runs/
 *.pt
+!artifacts/pilot_cnn.pt
 .env
 .streamlit/secrets.toml
 
