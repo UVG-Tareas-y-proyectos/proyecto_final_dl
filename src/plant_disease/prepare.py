@@ -33,6 +33,7 @@ def prepare(root, leaf_map, out, seed=42):
         raise ValueError("La salida debe estar vacía para no sobrescribir particiones.")
     metadata = json.loads(Path(leaf_map).read_text(encoding="utf-8"))
     rows, excluded, damaged, duplicates = [], [], [], 0
+    duplicate_images = []
     seen_hashes = {}
     parents = {}
 
@@ -69,6 +70,7 @@ def prepare(root, leaf_map, out, seed=42):
                 raise ValueError("Una imagen idéntica tiene etiquetas contradictorias.")
             union(groups[0], previous["group_id"])
             duplicates += 1
+            duplicate_images.append(rel)
             continue
         row = dict(path=rel, class_name=path.parent.name, group_id=groups[0], sha256=sha)
         rows.append(row)
@@ -108,6 +110,7 @@ def prepare(root, leaf_map, out, seed=42):
                    classes=sorted(by_class), manifest_sha256=digest(manifest),
                    leaf_map_sha256=digest(leaf_map),
                    duplicates_removed=duplicates, missing_leaf_metadata=excluded,
+                   duplicate_images=duplicate_images,
                    damaged_images=damaged,
                    counts={s: dict(Counter(r["class_name"] for r in rows if r["split"] == s)) for s in SPLITS})
     (out / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -118,13 +121,20 @@ def validate_rows(rows):
     if not rows:
         raise ValueError("Manifiesto vacío.")
     owners = {"path": {}, "group_id": {}, "sha256": {}}
-    classes = set(r["class_name"] for r in rows)
+    classes = set()
+    group_labels = {}
+    hash_labels = {}
     for row in rows:
         if not all(row.get(k) for k in FIELDS) or row["split"] not in SPLITS:
             raise ValueError("Fila incompleta o partición desconocida.")
+        classes.add(row["class_name"])
+        for key, labels in (("group_id", group_labels), ("sha256", hash_labels)):
+            if row[key] in labels and labels[row[key]] != row["class_name"]:
+                raise ValueError(f"Etiquetas contradictorias para {key}={row[key]}")
+            labels[row[key]] = row["class_name"]
         for key, seen in owners.items():
             value = row[key]
-            if value in seen and (seen[value] != row["split"] or key == "path"):
+            if value in seen and (seen[value] != row["split"] or key in {"path", "sha256"}):
                 raise ValueError(f"Fuga de datos o ruta repetida: {key}={value}")
             seen[value] = row["split"]
     for split in SPLITS:

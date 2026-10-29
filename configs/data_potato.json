@@ -1,0 +1,9 @@
+{
+  "out": "data/raw/potato",
+  "ref": "7f7ecc7e1eaca78107e3affe7cb5abd9427e139a",
+  "classes": ["Potato___Early_blight", "Potato___Late_blight", "Potato___healthy"],
+  "all_leaves": true,
+  "all_images": true,
+  "seed": 42,
+  "workers": 6
+}
