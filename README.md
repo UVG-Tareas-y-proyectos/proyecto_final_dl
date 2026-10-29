@@ -14,7 +14,7 @@ Python 3.10 o superior (verificado con 3.12). Desde la raíz del repositorio:
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[dev,analysis]"
 ```
 
 En Linux/macOS: `source .venv/bin/activate`.
@@ -71,12 +71,66 @@ quedó bloqueada por el filtro de red del entorno; su implementación y dimensio
 se probaron con pesos aleatorios, pero su entrenamiento con transferencia queda pendiente.
 Los datos y resultados auditables del piloto se encuentran en `experiments/pilot/`.
 
+## Avance 1 de 3 · miércoles 28 de octubre
+
+Se amplió el piloto a las **2,152 imágenes RGB de papa** de la misma revisión
+de PlantVillage: 1,000 de tizón temprano, 1,000 de tizón tardío y 152 sanas.
+Esto cubre tres clases; todavía no es el conjunto completo de 38 clases.
+La descarga verifica cada imagen contra el objeto Git de la revisión fijada.
+
+```powershell
+python scripts/download_pilot.py --config configs/data_potato.json
+python -m plant_disease.prepare --root data/raw/potato/color --leaf-map data/raw/potato/leaf-map.json --out data/processed/potato --seed 42
+python -m plant_disease.audit --root data/raw/potato/color --manifest data/processed/potato/manifest.csv --summary data/processed/potato/summary.json --out runs/audit_potato --plots
+```
+
+Ejecutar cada comando después de terminar el anterior y usar salidas nuevas si
+ya existen. El manifiesto definitivo se conserva en
+`experiments/2026-10-28/manifest.csv`; úsalo también en los entrenamientos para
+mantener las particiones. La auditoría rechaza imágenes nuevas sin contabilizar,
+archivos modificados, hojas con etiquetas contradictorias y duplicados de imágenes.
+
+| Partición | Imágenes | Hojas |
+| --- | ---: | ---: |
+| Entrenamiento | 1,524 | 372 |
+| Validación | 312 | 78 |
+| Prueba | 316 | 78 |
+
+Las 528 hojas quedan separadas entre particiones. No se detectaron archivos dañados,
+imágenes sin metadatos ni duplicados exactos. Todas las imágenes son RGB de 256 x 256.
+El desbalance en entrenamiento es **6.07:1**. La clase sana solo dispone de cuatro
+hojas en validación y cuatro en prueba: sus métricas tendrán alta variabilidad.
+Estos controles no detectan todas las similitudes visuales ni errores del metadato.
+
+Los resultados están en [la auditoría del miércoles](experiments/2026-10-28/audit/audit.json),
+con [distribución por clase](experiments/2026-10-28/audit/class_distribution.png),
+inventario, resumen de preparación y procedencia. Los pesos de clase sugeridos
+se calculan **solo con train** y aún no se aplican al entrenamiento; tampoco
+constituyen métricas predictivas. El piloto de 117 imágenes permanece como experimento anterior.
+
+| Parte | Fecha | Alcance |
+| --- | --- | --- |
+| 1 · Ihan | Miércoles 28 | Completado: descarga ampliada, manifiesto y auditoría de datos. |
+| 2 · Patzan | Jueves 29 | Pendiente: entrenar la CNN y MobileNetV2 con el manifiesto fijado; resolver acceso a pesos oficiales y comparar con/sin pesos de clase usando validación. |
+| 3 · Equipo | Viernes 30 | Pendiente: evaluar checkpoints seleccionados en test, revisar errores, integrar la interfaz y actualizar la entrega parcial. |
+
+Punto de inicio para el jueves, con los datos ya descargados en esta computadora:
+
+```powershell
+python -m plant_disease.train --root data/raw/potato/color --manifest experiments/2026-10-28/manifest.csv --model cnn --out runs/potato_cnn --epochs 15
+```
+
+La nueva partición contiene imágenes del piloto anterior. No comparar sus métricas
+como si fueran el mismo test ni reutilizar `artifacts/pilot_cnn.pt` como modelo
+final de este experimento. Las semillas y configuraciones se seleccionan en
+validación; conservar test para la evaluación final.
+
 ## Documentos de la entrega
 
 - [Entrega parcial en PDF](docs/entrega_parcial.pdf).
 
-La entrega parcial en Canvas requiere además la captura del correo que aprueba
-el **tema**. Debe adjuntarla el equipo; no se dispone de esa evidencia en este repositorio.
+El PDF incluye al final la captura proporcionada del mensaje del catedrático,
+sin texto explicativo adicional.
 El video y la presentación de máximo 10 diapositivas corresponden a la entrega final.
 
 El reporte usa el formato de laboratorio del equipo: portada UVG, Times New Roman,

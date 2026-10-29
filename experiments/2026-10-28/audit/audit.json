@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "manifest_sha256": "ab3d576c6e532f1879032f6cc61779c1197050f9cffbd4188bfc3025430d6f9f",
+  "images": 2152,
+  "groups": 528,
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "physical_images": 2152,
+  "excluded_images": 0,
+  "counts": {
+    "train": 1524,
+    "val": 312,
+    "test": 316
+  },
+  "image_fractions": {
+    "train": 0.70817843866171,
+    "val": 0.1449814126394052,
+    "test": 0.14684014869888476
+  },
+  "overlap": {
+    "train/val": {
+      "group_id": 0,
+      "sha256": 0
+    },
+    "train/test": {
+      "group_id": 0,
+      "sha256": 0
+    },
+    "val/test": {
+      "group_id": 0,
+      "sha256": 0
+    }
+  },
+  "class_distribution": [
+    {
+      "class_name": "Potato___Early_blight",
+      "split": "train",
+      "images": 704,
+      "groups": 176
+    },
+    {
+      "class_name": "Potato___Early_blight",
+      "split": "val",
+      "images": 148,
+      "groups": 37
+    },
+    {
+      "class_name": "Potato___Early_blight",
+      "split": "test",
+      "images": 148,
+      "groups": 37
+    },
+    {
+      "class_name": "Potato___Late_blight",
+      "split": "train",
+      "images": 704,
+      "groups": 176
+    },
+    {
+      "class_name": "Potato___Late_blight",
+      "split": "val",
+      "images": 148,
+      "groups": 37
+    },
+    {
+      "class_name": "Potato___Late_blight",
+      "split": "test",
+      "images": 148,
+      "groups": 37
+    },
+    {
+      "class_name": "Potato___healthy",
+      "split": "train",
+      "images": 116,
+      "groups": 20
+    },
+    {
+      "class_name": "Potato___healthy",
+      "split": "val",
+      "images": 16,
+      "groups": 4
+    },
+    {
+      "class_name": "Potato___healthy",
+      "split": "test",
+      "images": 20,
+      "groups": 4
+    }
+  ],
+  "image_modes": {
+    "RGB": 2152
+  },
+  "resolutions": {
+    "256x256": 2152
+  },
+  "train_imbalance_ratio": 6.068965517241379,
+  "train_majority_baseline": {
+    "class_name": "Potato___Early_blight",
+    "accuracy": 0.46194225721784776
+  },
+  "suggested_train_class_weights": {
+    "Potato___Early_blight": 0.7215909090909091,
+    "Potato___Late_blight": 0.7215909090909091,
+    "Potato___healthy": 4.379310344827586
+  },
+  "warnings": [
+    "Desbalance de entrenamiento mayor a 2:1; accuracy puede ocultar errores en la clase minoritaria.",
+    "Hay clases con menos de 10 hojas en alguna partición; sus métricas tendrán alta variabilidad."
+  ],
+  "scope": "Calidad y separación del dataset; no mide el desempeño predictivo ni identifica todas las similitudes visuales.",
+  "preparation_exclusions": {
+    "missing_leaf_metadata": 0,
+    "damaged_images": 0,
+    "duplicates_removed": 0,
+    "summary_sha256": "bdab3a65de61061f2ef6b578ca20bbb914cf9b4af0c538143d846c739355b483"
+  }
+}

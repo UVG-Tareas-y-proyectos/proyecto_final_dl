@@ -1,0 +1,10 @@
+class_name,split,images,groups
+Potato___Early_blight,train,704,176
+Potato___Early_blight,val,148,37
+Potato___Early_blight,test,148,37
+Potato___Late_blight,train,704,176
+Potato___Late_blight,val,148,37
+Potato___Late_blight,test,148,37
+Potato___healthy,train,116,20
+Potato___healthy,val,16,4
+Potato___healthy,test,20,4
