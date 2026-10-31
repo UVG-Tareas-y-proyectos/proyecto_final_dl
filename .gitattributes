@@ -3,4 +3,6 @@
 *.pdf binary
 *.docx binary
 *.pt binary
+# Preserve the exact bytes used by training artifact checksums.
+experiments/2026-10-30/** -text whitespace=cr-at-eol
 

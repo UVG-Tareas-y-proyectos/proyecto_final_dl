@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "epochs_completed": 15,
+  "best_val_f1_macro": 0.9797586438444092,
+  "finished_at_utc": "2026-10-31T00:20:07.626985+00:00",
+  "artifacts": {
+    "best.pt": "197f7f5239919376b2b9255606c09476ced6aeb720e2e5f8f3fec8f42b87b5af",
+    "config.json": "437d43c0ddaf3f5221d3774c127d10b8e4412c6b4423505ae7417d2f00637cce",
+    "history.json": "4d94fa9bbe855dd3398a42b3beb2eb6f24c057310be337b24f66c6669e397871",
+    "validation_metrics.json": "dcd71fe53267330bf199516eaa835ae6119582fd4d75849ce9a9c0f06bf3328a",
+    "validation_predictions.csv": "c5834108f3a1a0e8beb9e8a639e362e98302cb610d0ebda6de0ee79ffe8aa7b4",
+    "timing.json": "ce1a3c30047811f23dbbf258a078feeab89ba66dc16a90fe01c209bf2fe0168d"
+  }
+}

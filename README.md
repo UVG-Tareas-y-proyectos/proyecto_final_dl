@@ -105,16 +105,16 @@ Estos controles no detectan todas las similitudes visuales ni errores del metada
 Los resultados están en [la auditoría del miércoles](experiments/2026-10-28/audit/audit.json),
 con [distribución por clase](experiments/2026-10-28/audit/class_distribution.png),
 inventario, resumen de preparación y procedencia. Los pesos de clase sugeridos
-se calculan **solo con train** y aún no se aplican al entrenamiento; tampoco
-constituyen métricas predictivas. El piloto de 117 imágenes permanece como experimento anterior.
+se calcularon **solo con train**. La parte 2 documenta su aplicación en el
+entrenamiento. El piloto de 117 imágenes permanece como experimento anterior.
 
 | Parte | Fecha | Alcance |
 | --- | --- | --- |
 | 1 · Ihan | Miércoles 28 | Completado: descarga ampliada, manifiesto y auditoría de datos. |
-| 2 · Patzan | Jueves 29 | Pendiente: entrenar la CNN y MobileNetV2 con el manifiesto fijado; resolver acceso a pesos oficiales y comparar con/sin pesos de clase usando validación. |
+| 2 · Diego | Viernes 30 | Completado: dos CNN con/sin pesos de clase y comparación de validación. MobileNetV2 pendiente por acceso a ImageNet. |
 | 3 · Equipo | Viernes 30 | Pendiente: evaluar checkpoints seleccionados en test, revisar errores, integrar la interfaz y actualizar la entrega parcial. |
 
-Punto de inicio para el jueves, con los datos ya descargados en esta computadora:
+Comando de entrenamiento base sobre los datos ampliados:
 
 ```powershell
 python -m plant_disease.train --root data/raw/potato/color --manifest experiments/2026-10-28/manifest.csv --model cnn --out runs/potato_cnn --epochs 15
@@ -124,6 +124,61 @@ La nueva partición contiene imágenes del piloto anterior. No comparar sus mét
 como si fueran el mismo test ni reutilizar `artifacts/pilot_cnn.pt` como modelo
 final de este experimento. Las semillas y configuraciones se seleccionan en
 validación; conservar test para la evaluación final.
+
+## Avance 2 de 3 · Diego · viernes 30 de octubre
+
+Se entrenaron dos CNN desde cero con el manifiesto fijado por Ihan: **1,524 imágenes
+para entrenar y 312 para validar**, tres clases de papa. Ambas usan la misma
+arquitectura de 23,779 parámetros, semilla 42, 15 épocas, batch 32, AdamW con
+learning rate 0.001 y weight decay 0.01, y los mismos aumentos de entrenamiento.
+
+Una variante utiliza entropía cruzada sin ponderación; la otra aplica pesos por
+clase calculados exclusivamente con train: aproximadamente 0.7216 para cada
+clase de enfermedad y 4.3793 para hojas sanas. La pérdida de validación siempre
+se calcula sin ponderar para que las curvas sean comparables.
+
+Resultados del mejor checkpoint de cada ejecución, seleccionado por F1 macro:
+
+| CNN | Mejor época | Accuracy val. | F1 macro val. | Recall hojas sanas val. |
+| --- | ---: | ---: | ---: | ---: |
+| Sin ponderación | 14 | 0.9904 | 0.9932 | 1.0000 |
+| Pesos por clase | 15 | 0.9840 | 0.9798 | 1.0000 |
+
+El candidato seleccionado es **`cnn_unweighted`**. Su checkpoint está en
+[artifacts/part2_cnn.pt](artifacts/part2_cnn.pt). Las métricas anteriores corresponden
+a validación; **las 316 imágenes de test siguen reservadas para la parte 3**.
+No son resultados de test ni se comparan directamente con el piloto de 117 imágenes.
+La validación solo contiene cuatro hojas sanas independientes, por lo que el recall
+de esa clase puede variar mucho. Se utilizó una sola semilla y aún falta repetirla.
+
+Se conservan configuraciones, revisión del código, pesos por clase, historial por
+época, predicciones de validación, hashes y constancias de finalización en
+[experiments/2026-10-30](experiments/2026-10-30).
+La [comparación](experiments/2026-10-30/comparison/comparison.json) y las
+[curvas de aprendizaje](experiments/2026-10-30/comparison/learning_curves.png)
+permiten revisar la selección. La herramienta rechaza ejecuciones incompletas,
+artefactos modificados y comparaciones con particiones o presupuestos distintos.
+
+Para repetir ambos entrenamientos y compararlos:
+
+```powershell
+python scripts/train_experiments.py --config configs/train_part2.json
+python -m plant_disease.compare --runs runs/part2/cnn_unweighted runs/part2/cnn_balanced --out runs/part2/comparison --plots
+```
+
+Usar salidas nuevas si ya existen. Los checkpoints de ambas ejecuciones quedan
+localmente en `runs/part2/`; el candidato seleccionado también se versiona en
+`artifacts/part2_cnn.pt` para continuar sin volver a entrenar.
+
+MobileNetV2 sigue pendiente porque la descarga oficial de ImageNet permanece
+bloqueada por la red.
+
+La parte 3 puede comenzar con la evaluación del candidato, sin retocar su selección
+con el conjunto de test:
+
+```powershell
+python -m plant_disease.evaluate --root data/raw/potato/color --manifest experiments/2026-10-28/manifest.csv --checkpoint artifacts/part2_cnn.pt --out runs/part3_test
+```
 
 ## Documentos de la entrega
 

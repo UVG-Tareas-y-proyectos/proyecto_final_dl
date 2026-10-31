@@ -1,0 +1,11 @@
+{
+  "selected_run": "cnn_unweighted",
+  "checkpoint": "artifacts/part2_cnn.pt",
+  "checkpoint_sha256": "e4b80581f9cff445d422f02a0ae880b87f6fdecfc41de8d09e8cc76154926177",
+  "manifest": "experiments/2026-10-28/manifest.csv",
+  "manifest_sha256": "ab3d576c6e532f1879032f6cc61779c1197050f9cffbd4188bfc3025430d6f9f",
+  "test_evaluated": false,
+  "inference_smoke_test": "passed on one validation image; not a test metric",
+  "next_command": "python -m plant_disease.evaluate --root data/raw/potato/color --manifest experiments/2026-10-28/manifest.csv --checkpoint artifacts/part2_cnn.pt --out runs/part3_test",
+  "mobilenet_status": "pending by user choice; official ImageNet weights blocked by network"
+}

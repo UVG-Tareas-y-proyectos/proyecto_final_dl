@@ -1,0 +1,41 @@
+{
+  "root": "data\\raw\\potato\\color",
+  "manifest": "experiments\\2026-10-28\\manifest.csv",
+  "model": "cnn",
+  "out": "runs\\part2\\cnn_balanced",
+  "epochs": 15,
+  "batch_size": 32,
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "class_weights": "balanced",
+  "seed": 42,
+  "threads": 2,
+  "device": "cpu",
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "manifest_sha256": "ab3d576c6e532f1879032f6cc61779c1197050f9cffbd4188bfc3025430d6f9f",
+  "python": "3.12.10",
+  "torch": "2.6.0+cpu",
+  "torchvision": "0.21.0+cpu",
+  "pretrained": false,
+  "augmentation": "horizontal_flip + rotation_15, train only",
+  "image_size": 224,
+  "class_weight_values": [
+    0.7215909090909091,
+    0.7215909090909091,
+    4.379310344827586
+  ],
+  "train_counts": {
+    "Potato___Early_blight": 704,
+    "Potato___healthy": 116,
+    "Potato___Late_blight": 704
+  },
+  "selection_metric": "val_f1_macro",
+  "validation_loss": "unweighted_cross_entropy",
+  "trainable_parameters": 23779,
+  "code_revision": "aa657e0f8392480c3e91b9bf2ba9fb5895ffbcc7",
+  "code_dirty": false
+}

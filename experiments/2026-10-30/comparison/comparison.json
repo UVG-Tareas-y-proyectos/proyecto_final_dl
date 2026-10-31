@@ -1,0 +1,46 @@
+{
+  "split": "val",
+  "selection_metric": "val_f1_macro",
+  "tie_break": "run name ascending",
+  "selected_run": "cnn_unweighted",
+  "selected_checkpoint_sha256": "e4b80581f9cff445d422f02a0ae880b87f6fdecfc41de8d09e8cc76154926177",
+  "manifest_sha256": "ab3d576c6e532f1879032f6cc61779c1197050f9cffbd4188bfc3025430d6f9f",
+  "classes": [
+    "Potato___Early_blight",
+    "Potato___Late_blight",
+    "Potato___healthy"
+  ],
+  "seed": 42,
+  "epochs": 15,
+  "test_evaluated": false,
+  "runs": [
+    {
+      "run": "cnn_unweighted",
+      "model": "cnn",
+      "class_weights": "none",
+      "best_epoch": 14,
+      "val_n": 312,
+      "val_accuracy": 0.9903846153846154,
+      "val_precision_macro": 0.9933774834437087,
+      "val_recall_macro": 0.9932432432432433,
+      "val_f1_macro": 0.9932425491113723,
+      "val_loss": 0.046059061701481156,
+      "training_seconds": 482.9576129000634,
+      "checkpoint_sha256": "e4b80581f9cff445d422f02a0ae880b87f6fdecfc41de8d09e8cc76154926177"
+    },
+    {
+      "run": "cnn_balanced",
+      "model": "cnn",
+      "class_weights": "balanced",
+      "best_epoch": 15,
+      "val_n": 312,
+      "val_accuracy": 0.9839743589743589,
+      "val_precision_macro": 0.9715621347876899,
+      "val_recall_macro": 0.9887387387387387,
+      "val_f1_macro": 0.9797586438444092,
+      "val_loss": 0.04545336226240183,
+      "training_seconds": 495.95671029994264,
+      "checkpoint_sha256": "197f7f5239919376b2b9255606c09476ced6aeb720e2e5f8f3fec8f42b87b5af"
+    }
+  ]
+}
